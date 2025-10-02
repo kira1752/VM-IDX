@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # =============================
-# Ubuntu 22.04 VM (Auto Setup)
+# Ubuntu 24.04 VM (Auto Setup)
 # =============================
 
 clear
@@ -15,7 +15,7 @@ cat << "EOF"
             ##  "##m  ##    ##    ####   
             ##    ##  ##mmm##    ##  ##  
             ""    """ """""     """  """ 
-                   POWERED BY RDX             
+                   POWERED BY KIRA1752             
 ================================================
 EOF
 
@@ -38,13 +38,13 @@ cd "$VM_DIR"
 # =============================
 if [ ! -f "$IMG_FILE" ]; then
     echo "[INFO] VM image not found, creating new VM..."
-    wget -q https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img -O "$IMG_FILE"
+    wget -q https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img -O "$IMG_FILE"
     qemu-img resize "$IMG_FILE" "$DISK_SIZE"
 
-    # Cloud-init config with hostname = ubuntu22
+    # Cloud-init config with hostname = ubuntu24
     cat > user-data <<EOF
 #cloud-config
-hostname: ubuntu22
+hostname: ubuntu24
 manage_etc_hosts: true
 disable_root: false
 ssh_pwauth: true
@@ -66,7 +66,7 @@ EOF
 
     cat > meta-data <<EOF
 instance-id: iid-local01
-local-hostname: ubuntu22
+local-hostname: ubuntu24
 EOF
 
     cloud-localds "$SEED_FILE" user-data meta-data
